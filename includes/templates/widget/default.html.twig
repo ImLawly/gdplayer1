@@ -1,0 +1,54 @@
+<script>
+    window.onhashchange = function() {
+        var $cxl = $('.container-xl.shadow, .container-fluid.shadow'),
+            $ico = $('.ico-theme'),
+            bsd = 'bootstrap-dark',
+            bsl = 'bootstrap bg-light';
+        if (location.href.indexOf('theme=dark') > -1) {
+            Cookies.set('theme', 'dark');
+            $('body').removeClass(bsl).addClass(bsd);
+            $cxl.addClass('bg-dark').removeClass('bg-white');
+            $ico.addClass('fa-moon').removeClass('fa-sun');
+        } else {
+            Cookies.remove('theme');
+            $('body').removeClass(bsd).addClass(bsl);
+            $cxl.addClass('bg-white').removeClass('bg-dark');
+            $ico.addClass('fa-sun').removeClass('fa-moon');
+        }
+        var darkOpts = dashboard.chart.isDarkMode(),
+            chartOpts = {
+                chart: {
+                    foreColor: darkOpts.foreColor,
+                    backgroundColor: darkOpts.backgroundColor
+                },
+                theme: {
+                    mode: darkOpts.mode
+                }
+            };
+        dashboard.chart.apex.views.updateOptions(chartOpts);
+        dashboard.chart.apex.videoStatus.updateOptions(chartOpts);
+        dashboard.chart.apex.serverStatus.updateOptions(chartOpts);
+    };
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+            .register('sw.js')
+            .then(function(res) {
+                console.debug("service worker registered");
+            })
+            .catch(function(err) {
+                console.debug("service worker not registered", err);
+            });
+    }
+    $(window).on("scroll", function () {
+        var $g = $("#actions-buttons");
+        if ($g.length) {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                $g.find('.col-12').addClass('d-flex justify-content-center');
+                $g.attr('style', 'position:fixed;z-index:999;bottom:0;left:0;margin:0;padding:0.5rem 0;box-shadow:0 -2px 5px rgba(0,0,0,0.1);width:100%;background:#fff;border-top:1px solid #eee;border-top-left-radius:0.25rem;border-top-right-radius:0.25rem');
+            } else {
+                $g.find('.col-12').removeClass('d-flex justify-content-center');
+                $g.attr('style', '');
+            }
+        }
+    });
+</script>

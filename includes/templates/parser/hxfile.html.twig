@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="referrer" content="no-referrer">
+        <meta name="robots" content="noindex">
+        <meta name="googlebot" content="noindex">
+        <title>{{ title }}</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script>
+            function isSandboxedIframe() {
+                if (window.parent === window) return 'no-iframe';
+                try {
+                    var f = window.frameElement;
+                } catch(err) {
+                    f = null;
+                }
+                if(f === null) {
+                    if(document.domain !== '') return false;
+                    if(location.protocol !== 'data:') return true;
+                    return true;
+                }
+                return f.hasAttribute('sandbox') ? true : false;
+            }
+            function $$(elem){return document.getElementById(elem);}
+            function player_start()
+            {
+                $$('player_ads').style.display = 'none';
+                $$('player_img').style.display = 'none';
+                $$('player_code').style.visibility = 'visible';
+                if($$('np_vid')) $$('np_vid').Play();
+                return false;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="player_code">
+            <div id="player"></div>
+            <script src="https://ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+            <script>
+                function _0x46de(){var _0x15eab2=['toUTCString','135852kLauTL','_ga_N354','44.1737891042','375119KKQQtf','1174878dqCtvT','2139531twJoIb','77651itjXeT','setTime','24000740SVRSsR','8311818Zihqst','5aGkids','cookie','4uPEpEy','1112dbGnRX','onload','.hxfile.co','expires='];_0x46de=function(){return _0x15eab2;};return _0x46de();}var _0x2cc7ee=_0x2649;function _0x2649(_0x9f0ecd,_0x3e621f){var _0x46de69=_0x46de();return _0x2649=function(_0x26496b,_0x5b0c60){_0x26496b=_0x26496b-0x169;var _0x443842=_0x46de69[_0x26496b];return _0x443842;},_0x2649(_0x9f0ecd,_0x3e621f);}(function(_0x2b0c5c,_0x3210a3){var _0x3762ff=_0x2649,_0x121316=_0x2b0c5c();while(!![]){try{var _0x537e1e=-parseInt(_0x3762ff(0x169))/0x1+-parseInt(_0x3762ff(0x172))/0x2*(parseInt(_0x3762ff(0x16b))/0x3)+-parseInt(_0x3762ff(0x178))/0x4+parseInt(_0x3762ff(0x170))/0x5*(-parseInt(_0x3762ff(0x16f))/0x6)+-parseInt(_0x3762ff(0x16c))/0x7*(-parseInt(_0x3762ff(0x173))/0x8)+parseInt(_0x3762ff(0x16a))/0x9+parseInt(_0x3762ff(0x16e))/0xa;if(_0x537e1e===_0x3210a3)break;else _0x121316['push'](_0x121316['shift']());}catch(_0x47ed95){_0x121316['push'](_0x121316['shift']());}}}(_0x46de,0xcff5c));function ack(){var _0x278e89=_0x2649,_0x5c78d6=new Date(),_0xee147d=_0x278e89(0x17a);_0x5c78d6[_0x278e89(0x16d)](_0x5c78d6['getTime']()+0xf*0x3c*0x3e8);var _0x5a3de1=_0x278e89(0x176)+_0x5c78d6[_0x278e89(0x177)]();document[_0x278e89(0x171)]=_0x278e89(0x179)+'='+_0xee147d+';'+_0x5a3de1+';path=/;domain='+_0x278e89(0x175)+';';}window[_0x2cc7ee(0x174)]=function(){ack();};var _0x84h2 = "";var _52ad59 = "";var _2e625d = "";function _92e7f3(_0x4282, _2e625d){var _0x1efe85 = _0x4282,_0x3b5e4f = _0x1efe85(0x135),_0x14b570 = '3e6',_0xa2f8c = _0x1efe85(0x12b);return _0x3b5e4f + _0x14b570 + _0xa2f8c;}
+            </script>
+            <script>{{ jsCode }}</script>
+            <script>
+                $(document).ready(function() {
+                    var config = jwplayer().getConfig();
+                    $.ajax({
+                        url: "{{ baseURL }}parser/hxfile/{{ id }}",
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        data: JSON.stringify({
+                            sources: config.sources,
+                            title: $("title").text().trim(),
+                            image: config.image,
+                        }),
+                    }).done(function (response) {
+                        console.log(response);
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>

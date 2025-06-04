@@ -1,0 +1,68 @@
+{
+    "name": "adis0308/gdplayer",
+    "description": "Google Drive video player with proxy. You can play more than 45+ video/file hosting sites using this player.",
+    "version": "4.7.1",
+    "require": {
+        "php": ">=8.1.0",
+        "ext-curl": "*",
+        "ext-filter": "*",
+        "ext-hash": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-pdo_mysql": "*",
+        "kub-at/php-simple-html-dom-parser": "^1.9",
+        "tholu/php-packer": "^0.2",
+        "ovidigital/js-object-to-json": "^1.1",
+        "vanry/javascript-unpacker": "^1.1",
+        "phpmailer/phpmailer": "^6.9",
+        "phpseclib/mcrypt_compat": "^2.0",
+        "chrome-php/chrome": "^1.13",
+        "chrome-php/wrench": "^1.7",
+        "twig/twig": "^3.20",
+        "geoip2/geoip2": "^3.1",
+        "phpfastcache/phpfastcache": "^9.2",
+        "mantas-done/subtitles": "^0.3.10",
+        "whichbrowser/parser": "^2.1",
+        "mobiledetect/mobiledetectlib": "^4.8",
+        "symfony/process": "^6.4"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "composer dump-autoload"
+        ]
+    },
+    "suggest": {
+        "ext-apcu": "*",
+        "ext-bz2": "*",
+        "ext-fileinfo": "*",
+        "ext-igbinary": "*",
+        "ext-memcache": "*",
+        "ext-memcached": "*",
+        "ext-opcache": "*",
+        "ext-sqlite": "*",
+        "ext-redis": "*",
+        "ext-sockets": "*"
+    },
+    "config": {
+        "platform-check": true,
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
+        "apcu-autoloader": true
+    },
+    "autoload": {
+        "classmap": [
+            "includes/classes/"
+        ],
+        "exclude-from-classmap": [
+            "includes/classes/Hosting/*.php"
+        ],
+        "files": [
+            "includes/config.php",
+            "includes/functions.php"
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+<style>
+    .dual-ring {
+        width: 100px;
+        height: 100px;
+        border: 8px solid transparent;
+        border-top: 8px solid {{ playerColor }};
+        border-right: 7px solid {{ playerColor2 }};
+        border-radius: 50%;
+        animation: dual-spin 1s linear infinite;
+        margin: 0 auto;
+    }
+    @keyframes dual-spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<div class="dual-ring"></div>

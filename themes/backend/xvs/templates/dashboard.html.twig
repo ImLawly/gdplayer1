@@ -1,0 +1,345 @@
+<div class="row mb-3">
+	<div class="col-12 col-md-4 col-lg-3">
+		<div class="block block-gr widget">
+			<div class="block-bg p-3">
+				<div class="d-flex align-items-center">
+					<div class="flex-shrink-0">
+						<em class="fas fa-film fa-2x text-primary"></em>
+					</div>
+					<div class="flex-grow-1 ms-3">
+						<div>Total Links</div>
+						<a href="{{ admin_dir }}/videos/list/">
+							<h4 id="numVideos" class="m-0">0</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="block block-gr widget">
+			<div class="block-bg p-3">
+				<div class="d-flex align-items-center">
+					<div class="flex-shrink-0">
+						<em class="fas fa-film fa-2x text-danger"></em>
+					</div>
+					<div class="flex-grow-1 ms-3">
+						<div>Broken Links</div>
+						<a href="{{ admin_dir }}/videos/list/?status=1">
+							<h4 id="numBrokenVideos" class="m-0">0</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% if is_admin %}
+			<div class="block block-gr widget">
+				<div class="block-bg p-3">
+					<div class="d-flex align-items-center">
+						<div class="flex-shrink-0">
+							<em class="fas fa-server fa-2x text-primary"></em>
+						</div>
+						<div class="flex-grow-1 ms-3">
+							<div>Total Servers</div>
+							<a href="{{ admin_dir }}/settings/load-balancers/list/">
+								<h4 id="numServers" class="m-0">0</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="block block-gr widget">
+				<div class="block-bg p-3">
+					<div class="d-flex align-items-center">
+						<div class="flex-shrink-0">
+							<em class="fab fa-google-drive fa-2x text-primary"></em>
+						</div>
+						<div class="flex-grow-1 ms-3">
+							<div>Google Drive Accounts</div>
+							<a href="{{ admin_dir }}/gdrive/list/">
+								<h4 id="numGDrives" class="m-0">0</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		<div class="block widget">
+			<div class="block-bg p-3">
+				<div class="d-flex mb-3">
+					<div class="flex-grow-1 me-3 text-white">Videos Status</div>
+					<div class="flex-shrink-0">
+						<button class="btn btn-outline-secondary btn-sm" onclick="dashboard.chart.videoStatus('.video-status')" data-toggle="tooltip" title="Reload">
+							<em class="fas fa-sync-alt"></em>
+						</button>
+					</div>
+				</div>
+				<div class="video-status mx-auto text-center">
+					<em class="fas fa-spin fa-sync-alt text-primary" style="font-size:50px"></em>
+					<div class="chart"></div>
+				</div>
+			</div>
+		</div>
+		{% if is_admin %}
+			<div class="block widget mt-3">
+				<div class="block-bg p-3">
+					<div class="d-flex mb-3">
+						<div class="flex-grow-1 me-3 text-white">Servers Usage</div>
+						<div class="flex-shrink-0">
+							<button class="btn btn-outline-secondary btn-sm" onclick="dashboard.chart.serverStatus('.server-status')" data-toggle="tooltip" title="Reload">
+								<em class="fas fa-sync-alt"></em>
+							</button>
+						</div>
+					</div>
+					<div class="server-status mx-auto text-center">
+						<em class="fas fa-spin fa-sync-alt text-primary" style="font-size:50px"></em>
+						<div class="chart"></div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+	<div class="col-12 col-md-8 col-lg-9">
+		<div class="block widget">
+			<div class="block-bg p-3">
+				<div class="d-flex justify-content-between mb-3">
+					<h4 class="text-white">Popular Videos</h4>
+					<button class="btn btn-outline-secondary btn-sm" onclick="$('#tbPopularVideos').DataTable().ajax.reload(null, false)" data-toggle="tooltip" title="Reload">
+						<em class="fas fa-sync-alt"></em>
+					</button>
+				</div>
+				<table id="tbPopularVideos" class="table m-0" style="width:100%" aria-label="Popular Videos">
+					<thead>
+						<tr>
+							<th scope="col" style="max-width:300px!important">Title</th>
+							<th scope="col">Sources</th>
+							<th scope="col">Views</th>
+							<th scope="col">User</th>
+							<th scope="col" style="min-width:145px!important">Added</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th scope="col" style="max-width:300px!important">Title</th>
+							<th scope="col">Sources</th>
+							<th scope="col">Views</th>
+							<th scope="col">User</th>
+							<th scope="col" style="min-width:145px!important">Added</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+		<div class="block widget">
+			<div class="block-bg p-3">
+				<div class="d-flex justify-content-between mb-3">
+					<h4 class="text-white">Recently Added Videos</h4>
+					<button class="btn btn-outline-secondary btn-sm" onclick="$('#tbRecentVideos').DataTable().ajax.reload(null, false)" data-toggle="tooltip" title="Reload">
+						<em class="fas fa-sync-alt"></em>
+					</button>
+				</div>
+				<table id="tbRecentVideos" class="table m-0" style="width:100%" aria-label="Recently Added Videos">
+					<thead>
+						<tr>
+							<th scope="col" style="max-width:300px!important">Title</th>
+							<th scope="col">Sources</th>
+							<th scope="col">Views</th>
+							<th scope="col">User</th>
+							<th scope="col" style="min-width:145px!important">Added</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th scope="col" style="max-width:300px!important">Title</th>
+							<th scope="col">Sources</th>
+							<th scope="col">Views</th>
+							<th scope="col">User</th>
+							<th scope="col" style="min-width:145px!important">Added</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">
+		<div class="block widget">
+			<div class="block-bg p-3">
+				<div class="d-flex justify-content-between mb-3">
+					<h4 class="text-white">Statistics</h4>
+					<button class="btn btn-outline-secondary btn-sm" onclick="$('#views input[name=options]:checked').trigger('click')" data-toggle="tooltip" title="Reload">
+						<em class="fas fa-sync-alt"></em>
+					</button>
+				</div>
+				<div id="views" class="mx-auto text-center">
+					<div class="toolbar mb-3">
+						<div class="btn-group" role="group" aria-label="radio toggle button group">
+							<input id="optLastYear" type="radio" name="options" value="last_year" class="btn-check">
+							<label for="optLastYear" class="btn btn-sm btn-outline-custom">Last Year</label>
+
+							<input id="opt7Days" type="radio" name="options" value="seven_days" class="btn-check" checked>
+							<label for="opt7Days" class="btn btn-sm btn-outline-custom">7 Days</label>
+
+							<input id="opt1Month" type="radio" name="options" value="one_month" class="btn-check">
+							<label for="opt1Month" class="btn btn-sm btn-outline-custom">1 Month</label>
+
+							<input id="opt6Months" type="radio" name="options" value="six_months" class="btn-check">
+							<label for="opt6Months" class="btn btn-sm btn-outline-custom">6 Months</label>
+
+							<input id="optThisYear" type="radio" name="options" value="this_year" class="btn-check">
+							<label for="optThisYear" class="btn btn-sm btn-outline-custom">This Year</label>
+						</div>
+					</div>
+					<em class="fas fa-spin fa-sync-alt text-custom mb-3" style="font-size:50px"></em>
+					<div class="chart"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% if hide_ext_dialog == false %}
+	<div class="modal fade" id="modalExtApps" tabindex="-1" aria-labelledby="modalExtAppsLabel" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-md modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalExtAppsLabel">Support Checker</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-warning rounded-0">You have to enable the php functions and install the following php extensions and applications for the GDPlayer tool to work perfectly.</div>
+					<table class="table-sm" style="width:100%" aria-label="PHP Functions, Extensions, Applications">
+						<tbody>
+							<tr>
+								<th scope="col" colspan="2" class="text-center bg-custom text-white">PHP Functions</th>
+							</tr>
+							<tr>
+								<th scope="col">curl</th>
+								<td>
+									<span id="php_curl">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">shell_exec</th>
+								<td>
+									<span id="php_shell_exec">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">popen</th>
+								<td>
+									<span id="php_popen">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">proc_open</th>
+								<td>
+									<span id="php_proc_open">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">proc_get_status</th>
+								<td>
+									<span id="php_proc_get_status">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">proc_close</th>
+								<td>
+									<span id="php_proc_close">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">putenv</th>
+								<td>
+									<span id="php_putenv">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col" colspan="2" class="text-center bg-primary text-white">PHP Extensions</th>
+							</tr>
+							<tr>
+								<th scope="col">ionCube Loader</th>
+								<td>
+									<span id="php_ioncube">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">fileinfo</th>
+								<td>
+									<span id="php_fileinfo">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">mbstring</th>
+								<td>
+									<span id="php_mbstring">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">zip</th>
+								<td>
+									<span id="php_zip">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col">sockets</th>
+								<td>
+									<span id="php_sockets">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="col" colspan="2" class="text-center bg-danger text-white">Applications</th>
+							</tr>
+							<tr>
+								<th scope="col">Google Chrome / Chromium<br><a href="https://linuxize.com/tags/chrome/" target="_blank" rel="noopener">Install Now</a>
+								</th>
+								<td>
+									<span id="php_chrome">
+										<em class="fas fa-times-circle text-danger"></em>
+										Disabled</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="custom-control custom-checkbox mt-3">
+						<input type="checkbox" class="custom-control-input" id="hideForever">
+						<label class="custom-control-label" for="hideForever">Don't show this dialog box for a month</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" onclick="dashboard.supportChecker()">Re-check</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

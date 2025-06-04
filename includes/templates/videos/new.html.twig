@@ -1,0 +1,157 @@
+<div class="row">
+	<div class="col-12">
+		<h1 class="h4 mb-3">
+			{{ page_title }}
+		</h1>
+		<form action="{{ admin_dir }}/videos/new/" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+			<div class="row">
+				<div class="col-12 col-lg-6">
+					<div class="form-group">
+						<label for="title">
+							Video Title
+						</label>
+						<input type="text" name="title" id="title" class="form-control" placeholder="Insert video title here" required>
+					</div>
+					<div class="form-group">
+						<label for="host_id">
+							Main Video URL
+						</label>
+						<div class="input-group">
+							<input type="url" id="host_id" name="host_id" class="form-control" placeholder="Insert main video url here" required>
+							<div class="input-group-append">
+								<button type="button" class="btn btn-info" onclick="videos.scrollToHosts()" data-toggle="tooltip" title="Example Link">
+									<em class="fas fa-info-circle"></em>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sub-url-0">
+							Alternative Video URLs
+						</label>
+						<p>
+							<button type="button" class="btn btn-custom" onclick="videos.alternatives.add()" data-toggle="tooltip" title="Add Alternative Video URL">
+								<em class="fas fa-plus mr-2"></em>
+								Add
+							</button>
+						</p>
+						<div id="altWrapper"></div>
+					</div>
+					<div class="form-group">
+						<label for="multiSubUrls">
+							Subtitles
+						</label>
+						<p>
+							<button type="button" class="btn btn-custom" onclick="$('#multiSubFiles').val('');$('#bulkSubtitles').hide();$('#multiSubUrls').val('');videos.subtitles.add()" data-toggle="tooltip" title="Add Subtitle File/URL">
+								<em class="fas fa-plus mr-2"></em>
+								Add
+							</button>
+							<button type="button" class="btn btn-info" onclick="$('#subsWrapper').html('');$('#bulkSubtitles').show()" data-toggle="tooltip" title="Add Bulk Subtitles">
+								<em class="fas fa-plus mr-2"></em>
+								Add Bulk Subtitles
+							</button>
+						</p>
+						<div id="subsWrapper"></div>
+						<div id="bulkSubtitles" class="my-3" style="display:none">
+							<textarea id="multiSubUrls" name="multiSubUrls" class="form-control" rows="5" placeholder="Insert url per line"></textarea>
+							<div class="custom-file mt-2">
+								<input type="file" id="multiSubFiles" name="multiSubFiles[]" class="custom-file-input" accept=".srt, .vtt, .ass, .sub, .stl, .dfxp, .ttml, .sbv, .txt" multiple>
+								<label class="custom-file-label" for="multiSubFiles">
+									Upload Files (Max.
+									{{ max_file_uploads }}
+									)
+								</label>
+							</div>
+							<small class="form-text text-muted">
+								<strong class="text-success">
+									New:
+								</strong>
+								You can insert at the beginning/end of the file name the ISO 639-1 language code and separated by a period. Or you can use a vertical line as a separator between the language and the subtitle URL.
+							</small>
+							<small class="form-text text-muted">
+								<strong class="text-success">
+									Example:
+								</strong>
+								<br>
+								https://subtitle.com/subtitles/movie.en.srt
+								<br>
+								https://subtitle.com/subtitles/en.movie.vtt
+								<br>
+								English|https://subtitle.com/subtitles/movie.srt
+								<br>
+								https://subtitle.com/subtitles/movie.vtt|English
+							</small>
+						</div>
+					</p>
+					<small class="form-text text-muted">
+						<strong class="text-success">
+							New:
+						</strong>
+						Upload Subtitle Files (Max.
+						{{ max_file_uploads }}
+						)
+					</small>
+					<small class="form-text text-muted">
+						<strong class="text-success">
+							Subtitle formats:
+						</strong>
+						.srt, .vtt, .ass, .sub, .stl, .dfxp, .ttml, .sbv, .txt
+					</small>
+					<small class="form-text text-muted">
+						<strong class="text-success">
+							New:
+						</strong>
+						You can find the subtitle file that you uploaded earlier through the Subtitle URL field by typing the file name.
+					</small>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6">
+				<div class="form-group">
+					<label for="slug">
+						Custom Slug
+					</label>
+					<input type="text" name="slug" id="slug" class="form-control" placeholder="Insert custom slug here" maxlength="50">
+				</div>
+				<div class="form-group">
+					<label for="posterUrl">
+						Poster
+					</label>
+					<div id="posterURL" class="input-group">
+						<input type="url" id="posterUrl" name="poster-url" class="form-control" placeholder="Poster Link">
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary btn-upload-poster" data-toggle="tooltip" title="Upload Poster">
+								<em class="fas fa-upload"></em>
+							</button>
+						</div>
+					</div>
+					<div id="posterUpload" class="input-group d-none">
+						<div class="custom-file">
+							<input type="file" id="posterFile" name="poster-file" class="custom-file-input form-control" accept=".jpg, .jpeg, .png, .webp, .gif">
+							<label class="custom-file-label" for="poster">
+								Choose file
+							</label>
+						</div>
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary btn-upload-poster" data-toggle="tooltip" title="Insert Poster URL">
+								<em class="fas fa-link"></em>
+							</button>
+						</div>
+					</div>
+					<small class="form-text text-muted">
+						Poster formats: .jpg, .jpeg, .png, .webp, .gif
+					</small>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="actions-buttons">
+			<div class="col-12">
+				<input type="hidden" name="csrf" value="{{ csrf }}">
+				<button type="submit" class="btn btn-success">
+					<em class="fas fa-save mr-2"></em>
+					Save
+				</button>
+			</div>
+		</div>
+	</form>
+</div></div>
+{{ rowExampleLinks }}

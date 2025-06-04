@@ -1,0 +1,12 @@
+/**
+ * Wheel Color Picker for jQuery
+ * Dark variant Stylesheet
+ * 
+ * https://raffer.one/projects/jquery-wheelcolorpicker
+ * 
+ * Copyright © 2011-2016 Fajar Chandra. All rights reserved.
+ * Released under MIT License.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+ @import url(wheelcolorpicker.css);.jQWCP-slider,.jQWCP-wWheel,.jQWCP-wWidget{border-color:#444}.jQWCP-wWidget{background:#222}.jQWCP-wWidget.jQWCP-block{position:relative;border-color:#070707 #aaa #aaa #070707;box-shadow:-1px -1px 1px #000}

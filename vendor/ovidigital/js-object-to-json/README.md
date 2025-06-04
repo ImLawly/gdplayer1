@@ -1,0 +1,33 @@
+# ovidigital/js-object-to-json
+###### PHP library to convert a JavaScript object string to JSON formatted string
+
+[![Latest Version](https://img.shields.io/packagist/v/ovidigital/js-object-to-json.svg?acheSeconds=3600&label=latest%20version)](https://github.com/ovidigital/js-object-to-json/releases)
+[![Build Status](https://github.com/ovidigital/js-object-to-json/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/ovidigital/js-object-to-json/actions/workflows/ci.yml?query=branch%3Amaster)
+[![codecov](https://codecov.io/gh/ovidigital/js-object-to-json/branch/master/graph/badge.svg?token=YMKLV63PTA)](https://codecov.io/gh/ovidigital/js-object-to-json)
+
+## Installation
+```bash
+composer require ovidigital/js-object-to-json
+```
+
+## Usage
+
+```php
+// A variable containing a JavaScript object as a string
+$jsObjectString = "{ foo:  'bar' }";
+
+// Convert the JavaScript object to JSON format
+$json = \OviDigital\JsObjectToJson\JsConverter::convertToJson($jsObjectString);
+
+// Alternatively convert the JavaScript object to a PHP array
+$phpArray = \OviDigital\JsObjectToJson\JsConverter::convertToArray($jsObjectString);
+```
+
+## Contributing
+
+Feel free to submit a pull request or create an issue.
+
+## License
+This project is licensed under the terms of the MIT license.
+
+Check the [LICENSE.md](LICENSE.md) file for license rights and limitations.

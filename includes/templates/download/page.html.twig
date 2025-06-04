@@ -1,0 +1,108 @@
+{% set newTitle = text_title|replace({'{title}': title, '{siteName}': siteName}) %}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		{% if isSSL %}
+			<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+		{% endif %}
+        <meta name="referrer" content="{{ isApple ? 'same-origin' : 'no-referrer' }}">
+		<meta name="robots" content="noindex">
+		<meta name="googlebot" content="noindex">
+		<meta name="description" content="{{ newTitle }}">
+		<meta name="og:sitename" content="{{ siteName }}">
+		<meta name="og:title" content='{{ title }}'>
+		<meta name="og:description" content="{{ newTitle }}">
+		<meta name="og:type" content="video.movie">
+		<meta name="og:image" content="{{ poster }}">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content='{{ title }}'>
+		<meta name="twitter:description" content="{{ newTitle }}">
+		<meta name="twitter:image" content="{{ poster }}">
+		<meta name="msapplication-TileColor" content="{{ themeColor }}">
+		<meta name="theme-color" content="{{ themeColor }}">
+		<meta name="mobile-web-app-capable" content="yes">
+		<title>{{ newTitle }}</title>
+		<link rel="preconnect dns-prefetch" href="{{ baseURL }}">
+		<link rel="preconnect dns-prefetch" href="//www.gstatic.com">
+		<link rel="preconnect dns-prefetch" href="//www.googleapis.com">
+		<link rel="preconnect dns-prefetch" href="//www.googletagmanager.com">
+		<link rel="preconnect dns-prefetch" href="//www.google.com">
+		<link rel="preconnect dns-prefetch" href="//www.google-analytics.com">
+		<link rel="preconnect dns-prefetch" href="//fonts.gstatic.com">
+		<link rel="preconnect dns-prefetch" href="//googleusercontent.com">
+		<link rel="preconnect dns-prefetch" href="//lh3.googleusercontent.com">
+		<link rel="preconnect dns-prefetch" href="//drive-thirdparty.googleusercontent.com">
+		<link rel="shortcut icon" href="{{ baseURL }}favicon.ico" type="image/ico">
+		<link rel="stylesheet" href="{{ baseURL }}assets/vendor/bootstrap/4.6.2/css/bootstrap{{ minify }}.css">
+        <style type="text/css">
+            html, body {
+                padding: 0;
+                margin: 0;
+                overflow-x: hidden;
+                width: 100%;
+            }
+        </style>
+		<script type="text/javascript" src="{{ baseURL }}assets/vendor/jquery/3.7.1/jquery{{ minify }}.js"></script>
+        <script type="text/javascript" src="{{ baseURL }}assets/vendor/promise-polyfill/8.3.0/polyfill{{ minify }}.js"></script>
+        {% if productionMode %}
+		    <script type="text/javascript" src="{{ baseURL }}assets/vendor/dd.js"></script>
+            <script type="text/javascript">
+                (function(){var devToolsOpened=false;if(typeof devtoolsDetector!=="undefined"){devtoolsDetector.addListener(function(isOpen,event){devToolsOpened=isOpen});devtoolsDetector.launch()}setInterval(function(){if(devToolsOpened){if(typeof jQuery!=="undefined"){var $=jQuery;$(".btn-watch, .alert, #title").hide();$("#dlWrapper").html('<h1 class="h3" style="text-align:center">Do not open Developer Tools! <a href="javascript:void(0)" onclick="location.href=location.href">Reload</a></h1>');$(document).ajaxSend(function(event,jqXHR,settings){jqXHR.abort()})}window.location.href="https://google.com"}},1000)})();
+            </script>
+        {% endif %}
+        {% if blockADB %}
+            {% include 'widget/blockadb.html.twig' %}
+        {% endif %}
+		<script type="text/javascript">{{ jsVars }}</script>
+		{{ GA }}
+		{{ GTM_Head }}
+	</head>
+
+    <body class="bg-light h-100">
+        {{ GTM_Body }}
+        <div class="container bg-white rounded shadow py-5 my-5">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 id="title" class="h3 mb-2" style="word-break: break-all;">Download <span class="title">{{ title }}</span></h1>
+                </div>
+                <div class="col-12 mb-2">{{ topBanner }}</div>
+                <div class="col-12 col-md-9 mx-auto">
+                    <div class="alert alert-success">To increase download speed in Chrome (Chromium based) browser, you just need to enable <strong>Parallel downloading</strong> feature in your <strong>chrome://flags</strong> setting page.</div>
+					{% if showWatchButton %}
+                    	<a href="{{ embedURL }}" class="btn btn-danger btn-block btn-watch" target="_blank">Watch <span class="title">{{ title }}</span></a>
+					{% endif %}
+                    <div id="dlWrapper" class="my-2"></div>
+                </div>
+                <div class="col-12 mt-2">{{ bottomBanner }}</div>
+            </div>
+        </div>
+        {% if isError == false %}
+            {% if servers|length > 1 %}
+                <div id="server-list" style="display:none">
+                    <button type="button" id="btnServer" onclick="$('#servers').toggle()">
+                        <img src="{{ baseURL }}assets/img/menu.png" alt="Servers">
+                    </button>
+                    <ul id="servers" style="display:none">
+                        {% for i, val in servers %}
+                            <li>
+                                <a href="{{ val.url }}" class="{{ val.active ? 'active' : '' }}">
+                                    <img src="{{ baseURL }}assets/img/logo/{{ val.host }}.png" alt="{{ val.name }}" width="16" height="16"/>&nbsp;{{ val.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <script type="text/javascript" src="{{ baseURL }}assets/vendor/crypto-js/4.2.0/crypto-js{{ minify }}.js"></script>
+			<script type="text/javascript" src="{{ baseURL }}assets/js/app-v3.2.js"></script>
+			<script type="text/javascript" src="{{ baseURL }}assets/js/download-v{{ downloadVersion }}{{ isMobile or isApple ? '-md' : '' }}.min.js"></script>
+        {% endif %}
+        {{ enableShare ? sharer : '' }}
+		{{ Histats }}
+		{{ PopupAds }}
+    </body>
+</html>

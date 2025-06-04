@@ -1,0 +1,75 @@
+# Disable directory browsing
+Options -Indexes
+AddDefaultCharset utf-8
+
+# Block access to sensitive files/folders
+<IfModule mod_authz_core.c>
+    <FilesMatch "(^|/)(composer\.(json|lock|phar)|nginx\.conf|php\.ini|web\.config|\.env|\.gitignore|\.ht(access|passwd))$">
+        Require all denied
+    </FilesMatch>
+    <FilesMatch "(^|/)(cache|includes|tmp|vendor)/">
+        Require all denied
+    </FilesMatch>
+    <FilesMatch "\.(bak|config|sql|fla|psd|ini|log|sh|swp|old|orig|dist)$">
+        Require all denied
+    </FilesMatch>
+    <FilesMatch "/(.*)/views/">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+# Improve security by hiding headers
+<IfModule mod_headers.c>
+    Header unset Server
+    Header unset X-Powered-By
+    Header unset X-Runtime
+    Header unset X-Version
+    Header unset Referrer-Policy
+    Header set Access-Control-Allow-Methods "GET, POST, HEAD, OPTIONS"
+</IfModule>
+
+# Enable Gzip Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css image/svg+xml application/dash+xml application/javascript application/json application/rss+xml application/xhtml+xml application/xml application/x-javascript application/x-mpegurl application/vnd.apple.mpegurl application/vnd.ms-fontobject application/font-otf application/font-woff application/font-woff2 application/x-font-ttf
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+# URL Rewrite Rules
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # RewriteBase "/gdplayer/"
+
+    # Litespeed X-Litespeed-Location config
+    # Replace "/<site-path>/<domain-name>/" according to your site installation path
+    # After changing the path, remove the "#" sign in the next line
+    # RewriteRule ^cache-files/(.*)$ /<site-path>/<domain-name>/cache/files/$1 [L,E=IS_CACHE_FILE:true]
+
+    RewriteRule .* - [E=no-log:1]
+
+    # Block access to certain directories
+    RewriteRule ^(cache|includes|tmp|vendor)(/|$) - [F,L]
+
+    # Prevent Gzip compression for streaming content
+    RewriteRule ^(poster|stream-(ts|seg|vid)) - [E=no-gzip:1]
+
+    # Main rewrite rule
+    RewriteCond %{REQUEST_FILENAME} !-l
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule .* index.php [L,QSA]
+
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+
+    SetEnvIf REDIRECT_no-gzip 1 no-gzip
+</IfModule>
+
+# Litespeed CORS config for cache-files
+<IfModule mod_headers.c>
+    SetEnvIf IS_CACHE_FILE true CACHE_FILE_HEADER
+    Header always set Access-Control-Allow-Credentials "false" env=CACHE_FILE_HEADER
+    Header always set Access-Control-Allow-Origin "*" env=CACHE_FILE_HEADER
+    Header always set Access-Control-Allow-Headers "*" env=CACHE_FILE_HEADER
+    Header always set Access-Control-Expose-Headers "*" env=CACHE_FILE_HEADER
+</IfModule>

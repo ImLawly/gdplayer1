@@ -1,0 +1,41 @@
+<div class="row mb-3">
+    <div class="col-3 col-xs-1">
+        <div class="overflow-auto" style="height:500px">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% for k, v in supported_sites %}
+                {% set newVal = v|replace({'|New': '', '|Additional Host': ''}) %}
+                <button class="nav-link {{ loop.first ? 'active' : '' }}" id="v-pills-{{ k }}-tab" data-toggle="pill" data-target="#v-pills-{{ k }}" type="button" role="tab" aria-controls="v-pills-{{ k }}" aria-selected="{{ loop.first ? 'true' : 'false' }}" title="{{ newVal }}">
+                    <img src="{{ base_url }}assets/img/logo/{{ k }}.png" width="16" height="16" alt="{{ newVal }}">
+                    <span class="d-none d-sm-inline ml-2">{{ newVal }}</span>
+                </button>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-9 col-xs-11">
+        <div class="tab-content" id="v-pills-tabContent">
+            {% for k, v in supported_sites %}
+                {% set newKey = 'cookie_' ~ k %}
+                {% set newVal = v|replace({'|New': '', '|Additional Host': ''}) %}
+                <div class="tab-pane fade {{ loop.first ? 'show active' : '' }}" id="v-pills-{{ k }}" role="tabpanel" aria-labelledby="v-pills-{{ k }}-tab">
+                    {% if k != 'direct' %}
+                        <h3 class="h5">{{ newVal }} Settings</h3>
+                        <div class="form-group">
+                            <label for="cookie-{{ k }}">Cookies</label>
+                            <textarea name="cookie_{{ k }}" id="cookie-{{ k }}" placeholder="Insert Cookies" class="form-control" rows="5">{{ settings[newKey] ?? '' }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-hostname-{{ k }}">Custom Domains</label>
+                            <textarea name="custom-hostnames[{{ k }}]" id="custom-hostname-{{ k }}" placeholder="Insert Custom Domains. One per line" class="form-control" rows="5">{{ custom_hostnames[k] ?? '' }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="download-url-{{ k }}">Download Url</label>
+                            <input type="url" name="download-urls[{{ k }}]" id="download-url-{{ k }}" placeholder="Insert Download Url" class="form-control" value="{{ download_urls[k] ?? '' }}">
+                            <small class="text-muted">%s must be prepared which will be replaced with the original video ID.</small>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

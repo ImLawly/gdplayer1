@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="referrer" content="no-referrer">
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+    <title>Vidguard parser</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <video id="vg-player" class="video-js vjs-fill"></video>
+    <div class="vid-resume">
+        <div class="vid-resume-body">
+            <div class="vid-resume-header">
+                <h3>Resume playing?</h3>
+            </div>
+            <p>Welcome back! You left of at xx:xx:xx. Would you like to resume watching where you left off?</p>
+            <div class="vid-resume-footer"><button class="vid-resume-yes">Yes, please</button><button class="vid-resume-no">No, thanks</button></div>
+        </div>
+    </div>
+    <script src="https://ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+    <script>
+        jwplayer.key = "uoW6qHjBL3KNudxKVnwa3rt5LlTakbko9e6aQ6VUyKQ=";
+    </script>
+    <script src="{{ baseURL }}assets/vendor/vidguard/main.js"></script>
+    <script>{{ playerConfig }}</script>
+    <script>{{ evalCode }}</script>
+    <script>
+        $(document).ready(function() {
+            var config = jwplayer().getConfig();
+            $.ajax({
+                url: "{{ baseURL }}parser/vidguard/{{ id }}",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify({
+                    sources: config.sources,
+                    image: config.image,
+                    tracks: config.tracks
+                }),
+            }).done(function (response) {
+                console.log(response);
+            });
+        });
+    </script>
+</body>
+
+
+</html>

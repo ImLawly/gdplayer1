@@ -1,0 +1,11 @@
+<?php
+/*   __________________________________________________
+    |  Obfuscated by YAK Pro - Php Obfuscator  2.0.16  |
+    |              on 2025-05-18 20:27:35              |
+    |    GitHub: https://github.com/pk-fr/yakpro-po    |
+    |__________________________________________________|
+*/
+/*
+Copyright @ 2020 - 2025 GDPlayer v4.7.1. https://gdplayer.to | https://t.me/gdplayerto
+*/
+ namespace GDPlayer\Hosting; class Uptomega extends \GDPlayer\XVFSParser { public function __construct(string $id = '') { goto R5xn0; jWeB1: CEyee: goto H1f4u; ntPoX: if (empty($videoURL)) { goto cPxEb; } goto PvNpo; TzZmu: if (strpos($response, "\x64\151\x72\145\143\164\x5f\154\151\156\153") !== false) { goto D6V8w; } goto qWeBX; eJEpr: $this->title = trim(basename(parse_url($videoURL, PHP_URL_PATH))); goto nq152; B73up: q2mhu: goto ntPoX; qWeBX: if (validateUrl($response)) { goto CEyee; } goto YYkgz; NT7Yy: parent::__construct($id); goto Txfhy; E022T: $videoURL = ''; goto TzZmu; GeSpH: $videoURL = $directLink ? $directLink->href : ''; goto DgsIp; iE9C0: cPxEb: goto yoBBL; H1f4u: $videoURL = $response; goto B73up; DgsIp: goto q2mhu; goto jWeB1; R5xn0: session_write_close(); goto NT7Yy; DMazC: $dom = $this->domParser::str_get_html($response); goto ay89q; f0L5c: D6V8w: goto DMazC; lmNGp: $this->getDOMTitle($this->baseURL . $id); goto Tg4lH; PvNpo: $this->status = "\x6f\153"; goto eJEpr; yoBBL: LKsx8: goto lmNGp; nq152: $this->sources[] = ["\x66\x69\x6c\145" => $videoURL, "\x74\x79\160\x65" => $this->videoType, "\x6c\141\142\145\154" => "\x4f\x72\151\x67\151\156\x61\154"]; goto iE9C0; ay89q: $directLink = $dom->find("\43\x64\x69\162\x65\x63\x74\137\154\151\x6e\x6b\40\76\40\141", 0); goto GeSpH; Bro5T: $response = $this->sendFormData($this->url, ["\x6f\160" => "\144\x6f\167\x6e\154\157\141\x64\62", "\x69\x64" => $id, "\x72\141\x6e\x64" => '', "\x72\145\x66\145\x72\x65\x72" => $this->referer, "\x6d\145\164\x68\157\144\137\146\x72\x65\x65" => "\106\162\x65\145\x20\104\157\167\x6e\154\157\x61\144\40\45\x33\105\45\x33\105", "\155\145\x74\150\x6f\144\x5f\160\162\145\155\151\x75\155" => ''], false); goto E022T; YYkgz: goto q2mhu; goto f0L5c; Txfhy: if (!empty($this->sources)) { goto LKsx8; } goto Bro5T; Tg4lH: } }

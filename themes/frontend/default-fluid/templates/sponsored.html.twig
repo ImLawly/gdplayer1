@@ -1,0 +1,75 @@
+<h3 class="h5">{{ title }}</h3>
+<div class="owl-carousel owl-theme">
+    {% if list|length > 0 %}
+        {% for dt in list %}
+            <div class="item-video" data-merge="1">
+                <a class="owl-video" href="https://www.youtube.com/watch?v={{ dt.videoId }}"></a>
+                <div class="owl-header"><h3 class="owl-title">{{ dt.title }}</h3></div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<script>
+    $(document).ready(function() {
+        {% if list|length > 0 %}
+            {% set rand = random(list) %}
+            $('body').append('<div id="ytSponsored" class="embed-responsive embed-responsive-16by9 position-fixed"><iframe id="ytsIframe" class="embed-responsive-item" title="{{ rand.title|escape('js') }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><a id="hideYtSupported" href="javascript:void(0)" onclick="$(\'#ytSponsored\').hide();$(\'#ytsIframe\').remove()" role="button" aria-label="Close" class="text-danger position-absolute" style="top:0;right:0" data-toggle="tooltip" title="Close"><i class="fas fa-xl fa-square-xmark"></i></a></div>');
+            $(document).find('#ytsIframe').attr('src', 'https://www.youtube-nocookie.com/embed/{{ rand.videoId }}?autoplay=1&mute=1');
+        {% endif %}
+        $('head')
+        .append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">')
+        .append('<style>.owl-header{bottom: 0;margin: 0;padding: 0;position: absolute;z-index: 2;background: rgba(0, 0, 0, .7);color: #fff;width: 100%}.owl-title{margin: 0;padding: 10px;font-size: 14px!important;font-family: Arial, sans-serif;font-weight: 400;height:46px;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis}.owl-theme .owl-nav{display: none}.owl-dots{margin-top: 10px !important}.owl-carousel .owl-video-tn{background-size: cover;padding-bottom: 56.25%;padding-top: 25px}.owl-video-frame{position: relative;padding-bottom: 56.25%;padding-top: 25px;height: 0}.owl-video-frame iframe{position: absolute;top: 0;left: 0;width: 100%;height: 100%}.owl-dots{text-align: center;margin-top: 20px}.owl-dot{display: inline-block}.owl-dot span{width: 11px;height: 11px;background-color: #ccc;border-radius: 50%;display: block;margin: 5px 3px}.owl-dot.active span{background-color: #000}#ytSponsored{bottom:50px;right:15px;width:320px;z-index:25;max-width:calc(100% - 30px)}</style>');
+        require('https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', function() {
+            var $owl = $('.owl-carousel').owlCarousel({
+                items: 3,
+                loop: true,
+                video: true,
+                lazyLoad: false,
+                nav: false,
+                center: false,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    480: {
+                        items: 2,
+                        nav: false
+                    },
+                    720: {
+                        items: 3,
+                        nav: false
+                    },
+                    960: {
+                        items: 4,
+                        nav: false
+                    }
+                },
+                onInitialized: getOwlWidth,
+                onResized: getOwlWidth
+            });
+            $('.owl-item').click(function(e) {
+                window.open($(this).data('video'), '_blank');
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    });
+
+    function getOwlWidth() {
+        var $x = $('.owl-video-tn'), $tn;
+        if (typeof($x) !== 'undefined') {
+            $('.owl-title').css('width', $x.width().toString() + 'px');
+        }
+        $('.owl-item').each(function (i, e) {
+            $tn = $(this).find('.owl-video-tn');
+            $tn.attr('data-src', $tn.attr('srcType'));
+            $tn.removeAttr('srcType');
+        });
+    }
+</script>

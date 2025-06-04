@@ -1,0 +1,127 @@
+<div class="row pt-5" id="changelog">
+    <div class="col-12">
+        <h3 class="mb-4">Change Log</h3>
+        <ul class="list-unstyled">
+            <li class="mb-3">
+                <strong>May 18, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-success">Added</span> Block Proxy/VPN feature in Miscellaneous Settings page</li>
+                    <li><span class="text-bold text-success">Added</span> Google Photos HLS Mode in General Settings page. Google Photos video will prioritize the use of HLS video if Google Photos is bypassed.</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Change Filelions to EarnVids</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Change Streamwish to StreamHG</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Change Cookie Settings to Video Hosting Settings</li>
+                    <li><span class="text-bold text-primary">Fixed</span> DaddyHD, EarnVids, Mediafire, Mixdrop, OK.ru, TurboVIPlay, VK, Voe Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>May 10, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-primary">Fixed</span> Change the USER_AGENT value in the config.php file</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Direct, Filemoon, Zen (Дзен) Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Apr 30, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-success">Added</span> Mp4 videos downloaded as local cache from background using aria2 app has been added. This feature is to increase download speed with parallel mode. You should put aria2c or aria2c.exe file in <em>/incudes/bin/</em> folder. You can download the aria2 static build file via <a href="https://git.q3aql.dev/q3aql/aria2-static-builds" target="_blank" rel="noreferer noopener noindex">https://git.q3aql.dev/q3aql/aria2-static-builds</a>.</li>
+                    <li><span class="text-bold text-success">Added</span> Mp4 video sends a maximum of 3 MB chunks per request with a range if the range end value is not specified to minimize timeouts. <span class="text-danger">Note:</span> This setting may not apply if you are using a CDN like Cloudflare.</li>
+                    <li><span class="text-bold text-success">Added</span> Popup Ad Offset on the Ad Settings page. If you enter a value greater than 0 then the popup ad will be loaded after the video has played a few seconds according to the offset you set.</li>
+                    <li><span class="text-bold text-success">Added</span> Disable Background MP4 Video Download Option in General Settings page</li>
+                    <li><span class="text-bold text-success">Added</span> Now 3rd party subtitle and poster files are stored in <em>/uploads/subtitles/tmp/</em> and <em>/uploads/images/tmp/</em> folders as local cache. These files are deleted if you clear the video cache via the settings page.</li>
+                    <li><span class="text-bold text-primary">Fixed</span> DaddyHD, Gett, Google Drive, Vimeo Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Apr 23, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Apr 22, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-success">Added</span> Google Drive HLS Mode in General Settings page. Google Drive video will prioritize the use of HLS video if Google Drive is bypassed.</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Filemoon, Google Drive, Tiktok, Vidio Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Apr 15, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-success">Added</span> Default fluid layout theme "default-fluid".</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Google Photos, Mixdrop, Rumble Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Apr 04, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-danger">Note</span> PHP 8.1 is the minimum requirement</li>
+                    <li><span class="text-bold text-danger">Note</span> PHP 7+ is no longer supported</li>
+                    <li><span class="text-bold text-danger">Removed</span> Dropden, Embedrise, File.cm, Filerio, Streamff, StreamSilk, Streamvid, Upstream, Vidpro, Vixstream, Youdbox, ZtreamHub Hosts No Longer Supported</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Dailymotion, Filemoon, Google Drive, KrakenFiles, Naver TV, Uqload, Vidhide Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Mar 13, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-danger">Note</span> When updating the script, an Under Maintenance message will appear on the download and embed page until the update progress is complete</li>
+                    <li><span class="text-bold text-danger">Note</span> Update the config.php file first before you update the entire GDPlayer script</li>
+                    <li><span class="text-bold text-danger">Note</span> The .htaccess and Nginx.conf files has been updated so you have to update the file on your domain</li>
+                    <li><span class="text-bold text-danger">Note</span> If you are uploading more subtitle files at once then make sure the <em>max_file_uploads</em> setting has the appropriate value, this setting is in the <em>php.ini</em> configuration file</li>
+                    <li><span class="text-bold text-success">Added</span> You can add custom headers better to each URL or domain using the file <strong>/includes/bin/custom-headers.json</strong></li>
+                    <li><span class="text-bold text-primary">Fixed</span> Google Drive Host</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Feb 21, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-danger">Removed</span> The <em>Reduce Bandwidth Usage</em> setting on the Miscellaneous Settings page was removed because it does not function significantly and is only used to select automatic resolution according to the client's network speed</li>
+                    <li><span class="text-bold text-success">Added</span> Pixeldran Host</li>
+                    <li><span class="text-bold text-success">Added</span> You can search for videos based on alternative videos in the video list search</li>
+                    <li><span class="text-bold text-success">Added</span> <em>CACHE_TIMEOUT</em> config to the config.php file. Sets the timeout value in seconds. This setting is a global cache timeout. Default: 3600</li>
+                    <li><span class="text-bold text-success">Added</span> <em>DB_CACHE_TIMEOUT</em> config to the config.php file. Sets the timeout value in seconds for saving database query results. Default: 30</li>
+                    <li><span class="text-bold text-success">Added</span> <em>DB_ATTR_TIMEOUT</em> config to the config.php file. Sets the timeout value in seconds for communications with the database. Default: 0</li>
+                    <li><span class="text-bold text-success">Added</span> <em>DB_ATTR_PREFETCH</em> config to the config.php file. Setting the prefetch size allows you to balance speed against memory usage for your application. A larger prefetch size results in increased performance at the cost of higher memory usage. Default: 1</li>
+                    <li><span class="text-bold text-success">Added</span> <em>CACHE_USERNAME</em> config to the config.php file for future cache options</li>
+                    <li><span class="text-bold text-success">Added</span> Loader style in the Video Player Settings page</li>
+                    <li><span class="text-bold text-success">Added</span> Cache Instance Fallback with the following calling order: <em>Redis > Memcached > Apcu > Sqlite > Files</em></li>
+                    <li><span class="text-bold text-success">Added</span> Optional php extensions: <em>memcache, memcached</em>.</li>
+                    <li><span class="text-bold text-success">Added</span> Support for PHP 8.4+ with ionCube Loader v14.4.0 (beta).</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Dailymotion, Filemoon, Indishare, Sibnet.Ru Video, Yandex Disk Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li class="mb-3">
+                <strong>Jan 15, 2025</strong>
+                <ul>
+                    <li><span class="text-bold text-info">Info</span> Use ionCube Loader v14.0.0 if it doesn't work</li>
+                    <li><span class="text-bold text-danger">Removed</span> StreamVid, Youdbox, ztreamhub Hosts</li>
+                    <li><span class="text-bold text-danger">Removed</span> Iconv extension support, use mbstring instead for VK Host</li>
+                    <li><span class="text-bold text-success">Added</span> Lulustream JW Player Skin</li>
+                    <li><span class="text-bold text-success">Added</span> Fake Play Button</li>
+                    <li><span class="text-bold text-success">Added</span> More Audio/Subtitle Languages</li>
+                    <li><span class="text-bold text-success">Added</span> Default Audio Setting</li>
+                    <li><span class="text-bold text-success">Added</span> You can add/modify shortener urls via the <strong>/includes/bin/shortener-list.json</strong> file</li>
+                    <li><span class="text-bold text-success">Added</span> Read Cache File Using <strong>Apache X-Sendfile</strong> or <strong>Litespeed X-Litespeed-Location</strong> or <strong>Nginx X-Accel-Redirect</strong></li>
+                    <li><span class="text-bold text-success">Improved</span> JW Player &amp; Plyr + HLS.js + P2P Media Loader by Novage.com.ua</li>
+                    <li><span class="text-bold text-success">Improved</span> Redefine system requirements. Required php extensions: <em>curl, json, mbstring, openssl, pdo_mysql</em>. Optional php extensions: <em>apcu, bz2, fileinfo, opcache, pdo_sqlite, redis</em>.</li>
+                    <li><span class="text-bold text-success">Improved</span> Video Restreaming Performance</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Filemoon, Terabox, Vidio Hosts</li>
+                    <li><span class="text-bold text-primary">Fixed</span> Known Bugs</li>
+                </ul>
+            </li>
+            <li>
+                <strong>May 01, 2020</strong>
+                <ul>
+                    <li><span class="text-bold text-success">Initial Release</span></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

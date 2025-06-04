@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-12 col-md-6 col-lg-4 mx-auto">
+		<h1 class="h3 my-3 text-center">Reset Password</h1>
+		{% autoescape %}
+			{{ message|raw }}
+		{% endautoescape %}
+		<div class="mb-3">
+			<em class="fas fa-asterisk fa-xs text-danger mr-2"></em>Required
+		</div>
+		<form id="frm" action="{{ resetPasswordURL }}" method="post" class="needs-validation" novalidate>
+			<div class="form-group">
+				<label for="username">Username / Email<em class="fas fa-asterisk fa-xs text-danger ml-2"></em>
+				</label>
+				<input type="text" id="username" name="username" class="form-control" placeholder="Insert your username / email" required>
+			</div>
+			<div class="form-group text-center">
+				<div class="form-row">
+					<div class="col-7">
+						{% if recaptcha_site_key %}
+							{% include 'widget/recaptcha.html.twig' ignore missing with {recaptcha_site_key:recaptcha_site_key} %}
+						{% endif %}
+						<input type="hidden" name="action" value="confirm">
+                        <input type="hidden" name="csrf" value="{{ csrf }}">
+						<button type="submit" name="submit" class="btn btn-custom btn-block">
+							<em class="fas fa-sync-alt mr-2"></em>Reset Password
+						</button>
+					</div>
+					<div class="col-5">
+						<a href="{{ loginURL }}" class="btn btn-block btn-secondary">
+							Login<em class="fas fa-arrow-right ml-2"></em>
+						</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

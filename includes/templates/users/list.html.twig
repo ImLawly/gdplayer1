@@ -1,0 +1,192 @@
+<div class="row">
+	<div class="col-12">
+		<h1 class="h4 mb-3">{{ title }}</h1>
+		<div class="toolbar d-flex flex-wrap toolbar mb-3">
+			<a href="{{ admin_dir }}/users/new/" class="btn btn-success btn-sm">
+				<em class="fas fa-plus-circle mr-2"></em>Add New
+			</a>
+			<button type="button" class="btn btn-info btn-sm" onclick="users.list()">
+				<em class="fas fa-sync-alt mr-2"></em>Reload
+			</button>
+		</div>
+		<table id="tbUsers" class="table table-striped table-bordered table-hover table-sm m-0" style="width:100%" aria-describedby="User List">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Username</th>
+					<th scope="col">Email</th>
+					<th scope="col">Status</th>
+					<th scope="col">Added</th>
+					<th scope="col">Updated</th>
+					<th scope="col">Role</th>
+					<th scope="col">Links</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Username</th>
+					<th scope="col">Email</th>
+					<th scope="col">Status</th>
+					<th scope="col">Added</th>
+					<th scope="col">Updated</th>
+					<th scope="col">Role</th>
+					<th scope="col">Links</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+<div class="modal fade" id="modalUserStats" tabindex="-1" aria-labelledby="modalUserStatsLabel" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalUserStatsLabel">User Statistics</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="statUserID" value="">
+				<div class="row">
+					<div class="col-12 col-md-6">
+						<div class="card mb-3">
+							<div class="card-body py-2">
+								<div class="media">
+									<em class="fas fa-film fa-2x align-self-center mr-3 text-success"></em>
+									<div class="media-body">
+										<h4 id="numUserVideos" class="m-0">0</h4>
+										<small class="text-muted">Total Links</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div class="card mb-3">
+							<div class="card-body py-2">
+								<div class="media">
+									<em class="fas fa-film fa-2x align-self-center mr-3 text-danger"></em>
+									<div class="media-body">
+										<h4 id="numUserBrokenVideos" class="m-0">0</h4>
+										<small class="text-muted">Broken Links</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-2 col-lg-3"></div>
+				</div>
+				<div class="card mb-3">
+					<div class="card-header p-2 border-0">
+						<div class="d-flex align-items-center">
+							<h6 class="mb-0 flex-grow-1">Popular Videos</h6>
+							<button class="btn btn-outline-secondary btn-sm" onclick="$('#tbUserPopularVideos').DataTable().ajax.reload(null, false)" data-toggle="tooltip" title="Reload">
+								<em class="fas fa-sync-alt"></em>
+							</button>
+						</div>
+					</div>
+					<div class="card-body p-0">
+						<table id="tbUserPopularVideos" class="table table-striped table-hover table-sm m-0" style="width:100%" aria-label="Popular Videos">
+							<thead>
+								<tr>
+									<th scope="col" style="max-width:300px!important">Title</th>
+									<th scope="col">Sources</th>
+									<th scope="col">Views</th>
+									<th scope="col">Added</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th scope="col" style="max-width:300px!important">Title</th>
+									<th scope="col">Sources</th>
+									<th scope="col">Views</th>
+									<th scope="col">Added</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+				<div class="card mb-3">
+					<div class="card-header p-2 border-0">
+						<div class="d-flex align-items-center">
+							<h6 class="mb-0 flex-grow-1">Recently Added Videos</h6>
+							<button class="btn btn-outline-secondary btn-sm" onclick="$('#tbUserRecentVideos').DataTable().ajax.reload(null, false)" data-toggle="tooltip" title="Reload">
+								<em class="fas fa-sync-alt"></em>
+							</button>
+						</div>
+					</div>
+					<div class="card-body p-0">
+						<table id="tbUserRecentVideos" class="table table-striped table-hover table-sm m-0" style="width:100%" aria-label="Recently Added Videos">
+							<thead>
+								<tr>
+									<th scope="col" style="max-width:300px!important">Title</th>
+									<th scope="col">Sources</th>
+									<th scope="col">Views</th>
+									<th scope="col">Added</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th scope="col" style="max-width:300px!important">Title</th>
+									<th scope="col">Sources</th>
+									<th scope="col">Views</th>
+									<th scope="col">Added</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header p-2">
+						<div class="d-flex align-items-center">
+							<h6 class="mb-0 flex-grow-1">Statistics</h6>
+							<button class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" title="Reload">
+								<em class="fas fa-sync-alt"></em>
+							</button>
+						</div>
+					</div>
+					<div class="card-body p-2">
+						<div id="userViews" class="mx-auto text-center">
+							<div class="toolbar mb-3">
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-outline-custom btn-sm">
+										<input type="radio" name="options" value="last_year">
+										Last Year
+									</label>
+									<label class="btn btn-outline-custom btn-sm active">
+										<input type="radio" name="options" value="seven_days" checked>
+										7 Days
+									</label>
+									<label class="btn btn-outline-custom btn-sm">
+										<input type="radio" name="options" value="one_month">
+										1 Month
+									</label>
+									<label class="btn btn-outline-custom btn-sm">
+										<input type="radio" name="options" value="six_months">
+										6 Months
+									</label>
+									<label class="btn btn-outline-custom btn-sm">
+										<input type="radio" name="options" value="this_year">
+										This Year
+									</label>
+								</div>
+							</div>
+							<em class="fas fa-spin fa-sync-alt text-primary mb-3" style="font-size:50px"></em>
+							<div class="chart"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+		</div>
+	</div>
+</div>

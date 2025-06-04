@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="h4 mb-3">{{ title }}</h1>
+        <form action="{{ admin_dir }}/users/new/" method="post" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Your full name" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Your email address" autocomplete="email" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user">Username</label>
+                        <input type="text" name="user" id="user" class="form-control" placeholder="Your username" autocomplete="username" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">User Role</label>
+                        <select name="role" id="role" class="form-control" required>
+                            <option value="">-- Select User Role --</option>
+                            <option value="0">Administrator</option>
+                            <option value="1">User</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Status</label>
+                        <select name="status" id="status" class="form-control" required>
+                            <option value="">-- Select Status --</option>
+                            <option value="0">Inactive</option>
+                            <option value="1">Active</option>
+                            <option value="2">Need Approval</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="password">New Password</label>
+                        <div class="input-group has-validation">
+                            <input type="password" autocomplete="new-password" name="password" id="password" class="form-control" placeholder="Your new password" pattern="[^ ]{8,}" data-error-pattern="The password must contain at least 8 characters" data-error-required="The new password is required" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary btn-shp" data-shp="#password" type="button" data-toggle="tooltip" title="Show/hide New Password">
+                                    <em class="fas fa-eye"></em>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirm New Password</label>
+                        <div class="input-group has-validation">
+                            <input type="password" autocomplete="new-password" name="retype_password" id="retype_password" class="form-control" placeholder="Confirm your new password" pattern="[^ ]{8,}" data-error-pattern="The confirm password must contain at least 8 characters" data-error-required="The confirm new password is required" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary btn-shp" data-shp="#retype_password" type="button" data-toggle="tooltip" title="Show/hide Confirm New Password">
+                                    <em class="fas fa-eye"></em>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="hidden" name="csrf" value="{{ csrf }}">
+                    <button type="submit" class="btn btn-success">
+                        <em class="fas fa-save mr-2"></em>Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

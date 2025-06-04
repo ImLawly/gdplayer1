@@ -1,0 +1,17 @@
+<style>
+    .loading-spinner {
+        margin: 0 auto;
+        border: 10px solid rgba(0, 0, 0, 0.1);
+        border-top: 10px solid {{ playerColor }};
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<div class="loading-spinner"></div>

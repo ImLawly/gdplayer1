@@ -1,0 +1,3 @@
+<textarea id="txtAdsScript" style="display:none!important">{{ PopupAds|trim()|escape('html') }}</textarea>
+<input type="hidden" id="txtAdsOffset" style="display:none!important" value="{{ PopupAdsOffset|trim() }}">
+{{ PopupAdsOffset == "0" ? PopupAds|trim() : ""}}

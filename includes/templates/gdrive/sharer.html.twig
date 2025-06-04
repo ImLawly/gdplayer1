@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-12">
+		<form id="frmBypassLimit" method="post">
+			<input type="hidden" name="action" value="gdriveBypassLimit">
+			<div class="form-group">
+				<label for="gdrive_id">Google Drive ID</label>
+				<input type="text" name="gdrive_id" id="gdrive_id" class="form-control" placeholder="1KPtwrGMyjC9c_ZpOID4eLaSDErrA5x3O or https://drive.google.com/file/d/1KPtwrGMyjC9c_ZpOID4eLaSDErrA5x3O/view" required>
+			</div>
+			<div class="form-group text-center">
+				{% if recaptcha_site_key %}
+                    {% include 'widget/recaptcha.html.twig' ignore missing with {recaptcha_site_key:recaptcha_site_key} %}
+                {% else %}
+                    <input type="hidden" name="csrf" value="{{ csrf }}">
+				{% endif %}
+				<button id="submit" type="submit" class="btn btn-custom btn-block">
+					<em class="fab fa-google-drive mr-2"></em>Get Bypassed URL
+				</button>
+			</div>
+		</form>
+        <div class="form-group">
+            <div class="alert alert-info">The file name may be different than the original file name. If you find something like that, rename the file when you download it.</div>
+        </div>
+        <div class="form-group mb-0">
+            <input id="txtGDriveDL" data-id="" type="text" onfocus="this.select()" class="form-control" placeholder="The direct link is here!" readonly>
+        </div>
+	</div>
+</div>

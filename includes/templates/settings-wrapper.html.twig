@@ -1,0 +1,41 @@
+<div class="row">
+	<div class="col-12">
+		{% if title %}
+			<h1 class="h4 mb-3">{{ title }}</h1>
+		{% endif %}
+		<form action="{{ admin_dir }}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+			{% if form_data %}
+				{% include form ignore missing with form_data %}
+				{% include 'settings-buttons.html.twig' %}
+			{% elseif reset_form %}
+				{% include reset_form %}
+			{% endif %}
+		</form>
+	</div>
+</div>
+{% if modal %}
+	{% include modal %}
+{% endif %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        var lbs = localStorage.getItem("lb"),
+			lb = typeof lbs === "string" ? JSON.parse(lbs) : [baseURL],
+            data = {
+                action: "clearSettingsCache",
+                token: Cookies.get("adv_token", {
+                    domain: "." + document.domain,
+                    path: "/",
+                })
+            };
+        if ("{{ clearCache }}" === "1") {
+            $.each(lb, function (i, v) {
+                $.ajax({
+                    url: v + "ajax/settings/",
+                    type: "POST",
+                    cache: false,
+                    data: data
+                });
+            });
+        }
+    });
+</script>

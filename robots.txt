@@ -1,0 +1,6 @@
+user-agent: *
+disallow: /
+allow: /
+allow: /changelog
+allow: /privacy
+allow: /terms

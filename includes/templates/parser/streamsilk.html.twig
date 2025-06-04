@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="referrer" content="no-referrer">
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <textarea id="txtCode">{{ jsCode }}</textarea>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function indent(code) {
+            try {
+                var tabs = 0,
+                    old = -1,
+                    add = '';
+                for (var i = 0; i < code.length; i++) {
+                    if (code[i].indexOf("{") != -1) tabs++;
+                    if (code[i].indexOf("}") != -1) tabs--;
+
+                    if (old != tabs) {
+                        old = tabs;
+                        add = "";
+                        while (old > 0) {
+                            add += "\t";
+                            old--;
+                        }
+                        old = tabs;
+                    }
+
+                    code[i] = add + code[i];
+                }
+            } finally {
+                tabs = null;
+                old = null;
+                add = null;
+            }
+            return code;
+        }
+        function unPack(code) {
+            var env = {
+                eval: function(c) {
+                    code = c;
+                },
+                window: {},
+                document: {}
+            };
+
+            eval("with(env) {" + code + "}");
+
+            code = (code + "").replace(/;/g, ";\n").replace(/{/g, "\n{\n").replace(/}/g, "\n}\n").replace(/\n;\n/g, ";\n").replace(/\n\n/g, "\n");
+
+            code = code.split("\n");
+            code = indent(code);
+
+            code = code.join("\n");
+            return code;
+        }
+
+        $.ajax({
+            url: "{{ baseURL }}parser/streamsilk/{{ id }}",
+            method: "POST",
+            data: unPack($('#txtCode').val())
+        }).done(function(response) {
+            console.log(response);
+        });
+    </script>
+</body>
+
+</html>

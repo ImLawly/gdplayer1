@@ -1,0 +1,40 @@
+<div id="g-recaptcha" class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}" data-size="invisible" data-callback="recaptchaOnSubmit" data-expired-callback="recaptchaReset" data-error-callback="recaptchaReset"></div>
+<script src="https://www.google.com/recaptcha/api.js?onload=recaptchaOnLoad" async defer></script>
+<script>
+    window.sStorage = {
+		setItem: function (key, value) {
+			window.sStorage[key] = value;
+		},
+		getItem: function (key) {
+			return window.sStorage[key];
+		},
+		removeItem: function (key) {
+			return delete window.sStorage[key];
+		},
+		clear: function () {
+			Object.keys(window.sStorage).forEach(function(key) {
+                if (key !== 'setItem' && key !== 'getItem' && key !== 'removeItem' && key !== 'clear') {
+                    delete window.sStorage[key];
+                }
+            });
+		},
+	};
+    window.recaptchaOnSubmit = function(token) {
+        window.sStorage.setItem('g-recaptcha-response', token);
+    };
+    window.recaptchaReset = function(token) {
+        window.sStorage.removeItem('g-recaptcha-response');
+        if ($('.g-recaptcha').length) {
+            grecaptcha.reset();
+            grecaptcha.execute();
+        }
+    };
+    window.recaptchaOnLoad = function() {
+        window.sStorage.removeItem('g-recaptcha-response');
+        if ($('.g-recaptcha').length) {
+            grecaptcha.ready(function() {
+                grecaptcha.execute();
+            });
+        }
+    };
+</script>

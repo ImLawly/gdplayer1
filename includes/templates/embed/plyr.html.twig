@@ -1,0 +1,44 @@
+{% set newTitle = text_title|replace({'{title}': title, '{siteName}': siteName}) %}
+{% set minify = productionMode ? '.min' : '' %}
+{% set resumeYes = 'gdPlyr.resumePlayback()' %}
+{% set resumeNo = 'gdPlyr.play()' %}
+{% set plyrCustomCss = '<link rel="stylesheet" type="text/css" href="' ~ baseURL ~ 'assets/vendor/plyr/3.6.3/plyr-custom' ~ minify ~ '.css">' %}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    {% include 'embed/elements/head.html.twig' ignore missing with {isApple:isApple, newTitle:newTitle, siteName:siteName, title:title, newTitle:newTitle, poster:poster, themeColor:themeColor, baseURL:baseURL, minify:minify, playerColor:playerColor, ref:ref, showFakePlay:showFakePlay, resumePlayback:resumePlayback, jsVars:jsVars, GA:GA, GTM_Head:GTM_Head, plyrCustomCss:plyrCustomCss} %}
+	<body>
+        {% include 'embed/elements/ads_load.html.twig' ignore missing with {PopupAds:PopupAds, PopupAdsOffset:PopupAdsOffset} %}
+		{% include 'embed/elements/body_top.html.twig' ignore missing with {GTM_Body:GTM_Body, message:message, poster:poster, text_resume:text_resume, text_resume_no:text_resume_no, text_resume_yes:text_resume_yes, resumeNo:resumeNo, resumeYes:resumeYes, title:title, displayTitle:displayTitle, loader:loader, playerColor:playerColor, playerColor2: playerColor2, rgbColor:rgbColor, blockADB:blockADB, method:method, requestUri:requestUri, referer:referer} %}
+		{% if isError == false %}
+			<video id="videoContainer" preload="{{ preload }}" controls="true" style="display:none"></video>
+			{% include 'embed/elements/body_middle.html.twig' ignore missing with {randomSource:randomSource, baseURL:baseURL, servers:servers, minify:minify, selectedServer: selectedServer} %}
+            <script type="text/javascript" src="{{ baseURL }}assets/vendor/promise-polyfill/8.3.0/polyfill{{ minify }}.js"></script>
+            <script type="text/javascript" src="{{ baseURL }}assets/vendor/hls.js/1.5.18/hls{{ minify }}.js"></script>
+            {% if enableP2P and isSafariIE == false %}
+                <script type="text/javascript" src="{{ baseURL }}assets/vendor/p2p-media-loader-core/0.6.2/p2p-media-loader-core{{ minify }}.js"></script>
+                <script type="text/javascript" src="{{ baseURL }}assets/vendor/p2p-media-loader-shaka/0.6.2/p2p-media-loader-shaka{{ minify }}.js"></script>
+                <script type="text/javascript" src="{{ baseURL }}assets/vendor/shaka-player/2.5.23/shaka-player.compiled{{ productionMode ? '' : '.debug' }}.js"></script>
+                <script type="importmap">
+                    {
+                        "imports": {
+                            "p2p-media-loader-core": "{{ baseURL }}assets/vendor/p2p-media-loader-core/2.1.0/p2p-media-loader-core.es{{ minify }}.js",
+                            "p2p-media-loader-hlsjs": "{{ baseURL }}assets/vendor/p2p-media-loader-hlsjs/2.1.0/p2p-media-loader-hlsjs.es{{ minify }}.js"
+                        }
+                    }
+                </script>
+                <script type="module">
+                    import {HlsJsP2PEngine} from "p2p-media-loader-hlsjs";
+                    var HlsWithP2P = HlsJsP2PEngine.injectMixin(window.Hls);
+                    window.HlsWithP2P = HlsWithP2P;
+                </script>
+            {% else %}
+                <script type="text/javascript" src="{{ baseURL }}assets/vendor/shaka-player/4.13.4/shaka-player.compiled{{ productionMode ? '' : '.debug' }}.js"></script>
+            {% endif %}
+			<script type="text/javascript" src="{{ baseURL }}assets/vendor/plyr/3.6.3/plyr-custom.polyfilled{{ minify }}.js"></script>
+			<script type="text/javascript" src="{{ baseURL }}assets/js/shaka-player-error-codes.js"></script>
+			{% include 'embed/elements/body_bottom.html.twig' ignore missing with {baseURL:baseURL, playerVersion:playerVersion, isMobile:isMobile, isApple:isApple} %}
+		{% endif %}
+		{{ Histats }}
+	</body>
+
+</html>
